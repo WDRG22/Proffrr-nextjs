@@ -1,30 +1,23 @@
+import React from 'react';
+import Navbar from '@/components/Navbar/Navbar';
 import Link from 'next/link';
 
-export default function IndexPage() {
+const IndexPage: React.FC = () => {
   return (
-    <div>
-      <header>
-        <h1>Welcome to Proffer</h1>
-        <nav>
-          <ul>
-            <li><Link href="/admin/signup">Admin Signup</Link></li>
-            <li><Link href="/login">Login</Link></li>
-            <li><Link href="user/signup">User Signup</Link></li>
-            <li><Link href="/chatbot">Chat Bot </Link></li>
-          </ul>
-        </nav>
-      </header>
-      <main>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-grow p-4">
         <section>
-          <h2>Featured Products</h2>
-        </section>
-        <section>
-          <h2>Categories</h2>
+          <h2 className="text-xl font-semibold mb-4">Get Premium Tires at Unbeatable Prices</h2>
+          <p>Welcome to Proffer, your go-to source for top-quality tires at unbeatable prices.</p>
+          <Link href="/chatbot">Get Started</Link >
         </section>
       </main>
-      <footer>
+      <footer className="bg-gray-800 text-white text-center p-4">
         <p>&copy; 2024 Proffer. All rights reserved.</p>
       </footer>
     </div>
   );
-}
+};
+
+export default IndexPage;

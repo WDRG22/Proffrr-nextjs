@@ -1,25 +1,21 @@
 import Link from 'next/link';
-import Navbar from '@/components/Navbar/Navbar';
 
-export default function ChatbotPage() {
+export default function AdminProfilePage() {
   return (
-    <>
-    <Navbar />
     <div>
       <header>
-        <h1>Welcome to the ChatbotPage</h1>
+        <h1>Welcome to the AdminProfilePage</h1>
         <nav>
           <ul>
             <li><Link href="/">Home</Link></li>
           </ul>
         </nav>
       </header>
-      <main>
+      <main>        
       </main>
       <footer>
         <p>&copy; 2024 Proffer. All rights reserved.</p>
       </footer>
     </div>
-    </>
   );
 }
