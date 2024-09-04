@@ -1,3 +1,3 @@
 - Nextjs 14
 - App router
-- 
+- NextAuth.js

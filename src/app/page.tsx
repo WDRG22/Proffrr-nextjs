@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar/Navbar';
 import Link from 'next/link';
+import styles from '../styles/globals.css';
 
 const IndexPage: React.FC = () => {
   return (
@@ -10,12 +11,22 @@ const IndexPage: React.FC = () => {
         <section>
           <h2 className="text-xl font-semibold mb-4">Get Premium Tires at Unbeatable Prices</h2>
           <p>Welcome to Proffer, your go-to source for top-quality tires at unbeatable prices.</p>
-          <Link href="/chatbot">Get Started</Link >
+          <ul>
+            <li>
+              <Link href="/customer/dashboard">Customer Dashboard</Link>
+            </li>
+            <li>
+              <Link href="/merchant/dashboard">Merchant Dashboard</Link>
+            </li>
+            <li>
+              <Link href="/admin/dashboard">Admin Dashboard</Link>
+            </li>
+            <li>
+              <Link href="/chatbot">Chatbot</Link>
+            </li>
+          </ul>
         </section>
       </main>
-      <footer className="bg-gray-800 text-white text-center p-4">
-        <p>&copy; 2024 Proffer. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

@@ -1,13 +1,14 @@
-// import { useAuth } from '@/hooks/useAuth';
+'use client'
+import { useSession } from 'next-auth/react';
 import LoggedOutNavbar from './LoggedOutNavbar';
 import LoggedInNavbar from './LoggedInNavbar';
 
 export default function Navbar() {
-  return <LoggedOutNavbar />;
-  // const { isLoggedIn, userRole } = useAuth();
+  const { data: session, status } = useSession();
 
-  // if (!isLoggedIn) {
-  //   return <LoggedOutNavbar />;
-  // }
-  // return <LoggedInNavbar userRole={userRole} />;
+  if (!session) {
+    return <LoggedOutNavbar />;
+  }
+
+  return <LoggedInNavbar userRole={session?.user?.role} />;
 }
