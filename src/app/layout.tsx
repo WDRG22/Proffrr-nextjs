@@ -20,9 +20,6 @@ export default function RootLayout({
       <body>
         <Providers>
           {children}
-          <footer className="bg-gray-800 text-white text-center p-4">
-          <p>&copy; 2024 Proffer. All rights reserved.</p>
-        </footer>
         </Providers>
       </body>
     </html>

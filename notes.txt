@@ -1,11 +1,16 @@
 - Nextjs 14
 - App router
 - NextAuth.js
+- shadcn/ui for copy/paste components in src/components/ui
+
 - Add .env with NEXT_PUBLIC_API_URL set to fastapi url
 
 TO DO:
-- Complete login
-- Sign up
-- Authorization based on customer, merchant, admin
+- Complete login w/ stored userData and dynamic routing based on user type
+- Registration with merchant/customer selection (Plus 'admin' while in dev)
+- Light/Dark theme selection
+- Project structure consolidation (components, context, utils, etc)
+- Route authorization based on customer, merchant, admin
 - Vercel AI chatbot integration and agents creation
 - Flesh out front-end routes
+- Improve all page and component styling consistently
