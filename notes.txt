@@ -8,9 +8,10 @@
 TO DO:
 - Complete login w/ stored userData and dynamic routing based on user type
 - Registration with merchant/customer selection (Plus 'admin' while in dev)
-- Light/Dark theme selection
-- Project structure consolidation (components, context, utils, etc)
 - Route authorization based on customer, merchant, admin
 - Vercel AI chatbot integration and agents creation
 - Flesh out front-end routes
-- Improve all page and component styling consistently
+- Project structure consolidation (components, context, utils, etc)
+- Improve all page and component styling consistency
+- Light/Dark theme selection
+- Tailwind color palette
