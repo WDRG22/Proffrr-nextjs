@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100%;
+}
+
 @layer base {
-  :root {
-    --background: theme('colors.grey.lightest');
+  :root {    
+    background-color: var(--color-grey-100);
   }
 
   .dark {
-    --background: theme('colors.grey.darkest');
+    background-color: var(--color-grey-950);
   }
-}
-
-body {
-  @apply bg-background text-grey-darkest dark:text-grey-lightest;
 }
