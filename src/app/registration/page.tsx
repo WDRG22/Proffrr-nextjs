@@ -3,11 +3,13 @@ import Navbar from '@/components/Navbar/Navbar'
 
 export default function RegistrationPage() {
   return (
-    <div className='h-screen w-screen flex flex-col'>
+    <>
       <Navbar />            
-      <div className='flex flex-1 justify-center items-center'>
-        <RegistrationForm />
+      <div className='flex flex-col flex-grow'>
+        <div className='flex justify-center items-center pt-16'>
+          <RegistrationForm />
+        </div>
       </div>
-    </div>
+    </>
   )
 }

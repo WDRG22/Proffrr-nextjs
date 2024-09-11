@@ -1,17 +1,23 @@
-- Nextjs 14
-- App router
+- Nextjs 14 w/ App router
 - NextAuth.js
-- shadcn/ui for copy/paste components in src/components/ui
+- TailwindCSS
+- shadcn/ui pre-built components (src/components/ui)
 
 - Add .env with NEXT_PUBLIC_API_URL set to fastapi url
 
 TO DO:
-- Complete login w/ stored userData and dynamic routing based on user type
-- Registration with merchant/customer selection (Plus 'admin' while in dev)
-- Route authorization based on customer, merchant, admin
-- Vercel AI chatbot integration and agents creation
+- Implement login and store userData in userContext
+- Implement userContext
+- Update signup after Kaushik changes api
+- Update login and signup with proper security features
+- Implement localStorage
+- Implement route authorization based on customer, merchant, admin
+- Implement Vercel AI chatbot integration and agents creation
 - Flesh out front-end routes
-- Project structure consolidation (components, context, utils, etc)
-- Improve all page and component styling consistency
-- Light/Dark theme selection
-- Tailwind color palette
+- Implement custom color theme w/ dark and light modes
+- Update component styling for both light and dark modes
+    - Depends on color theme
+- Fix navbar styling issue
+- Implement light/dark mode toggle feature in navbar
+    - Depends on localStorage
+- Consolidate project structure (continuous)

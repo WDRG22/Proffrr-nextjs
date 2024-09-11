@@ -29,7 +29,7 @@ const formSchema = z.object({
   user_type: z.enum(["customer", "merchant", "admin"]),
   is_internal: z.boolean().default(false),
   is_active: z.boolean().default(true),
-  created_by: z.string().default("self"),
+  created_by: z.string().default("dev"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -108,7 +108,7 @@ export function RegistrationForm() {
                 <FormControl>
                   <Input {...field} id="first_name" className="w-full" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -122,7 +122,7 @@ export function RegistrationForm() {
                 <FormControl>
                   <Input {...field} id="last_name" className="w-full" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -136,7 +136,7 @@ export function RegistrationForm() {
                 <FormControl>
                   <Input placeholder="email@example.com" {...field} id="email" type="email" className="w-full" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -150,7 +150,7 @@ export function RegistrationForm() {
                 <FormControl>
                   <Input placeholder="Create a password" {...field} id="password" type="password" className="w-full" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -164,7 +164,7 @@ export function RegistrationForm() {
                 <FormControl>
                   <Input placeholder="Confirm your password" {...field} id="confirmPassword" type="password" className="w-full" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
@@ -200,12 +200,12 @@ export function RegistrationForm() {
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red" />
               </FormItem>
             )}
           />
           {/* Submit Button */}
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled={isLoading}>
+          <Button type="submit" className="w-full bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded" disabled={isLoading}>
             {isLoading ? "Registering..." : "Register"}
           </Button>
         </form>
@@ -226,7 +226,7 @@ export function RegistrationForm() {
       </Form>
       <p className="text-center text-primary">
         Already have an account?{' '}
-        <Link className="text-link hover:underline" href="/login">Login here</Link>{' '}
+        <Link className="text-link hover:underline text-blue" href="/login">Login here</Link>{' '}
       </p>
     </div>
   );
