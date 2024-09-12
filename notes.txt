@@ -21,3 +21,9 @@ TO DO:
 - Implement light/dark mode toggle feature in navbar
     - Depends on localStorage
 - Consolidate project structure (continuous)
+
+
+Last left off working on....
+- login/signup functionality
+- navbar spacing ( use fewer shadcn components to fix)
+- dark mode styling

@@ -1,6 +1,6 @@
-import AdminNavItems from "./NavItems/AdminNavItems";
-import CustomerNavItems from "./NavItems/CustomerNavItems";
-import MerchantNavItems from "./NavItems/MerchantNavItems";
+import AdminNavItems from "./navItems/AdminNavItems";
+import CustomerNavItems from "./navItems/CustomerNavItems";
+import MerchantNavItems from "./navItems/MerchantNavItems";
 
 export default function LoggedInNavbar({ userRole }) {
     return (

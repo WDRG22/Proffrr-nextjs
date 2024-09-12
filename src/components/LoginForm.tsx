@@ -90,78 +90,81 @@ export const LoginForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full sm:w-[400px]">
-        <h1 className="font-semibold text-2xl text-card-foreground">Login</h1>
-       
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input {...field} type="email" className="w-full" />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
+    <div className="shadow-xl p-8 bg-white rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
+      <h1 className="font-semibold text-2xl text-text-muted text-center">Login</h1>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="email" placeholder='email@example.com' className="w-full" />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Input 
-                    {...field} 
-                    type={showPassword ? "text" : "password"} 
-                    className="w-full pr-10" 
-                  />
-                  <button
-                    type="button"
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-gray-400" />
-                    ) : (
-                      <Eye className="h-5 w-5 text-gray-400" />
-                    )}
-                  </button>
-                </div>
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input 
+                        {...field} 
+                        placeholder='Password'
+                        type={showPassword ? "text" : "password"} 
+                        className="w-full pr-10" 
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5 text-gray-400" />
+                        ) : (
+                          <Eye className="h-5 w-5 text-gray-400" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />
 
-        {error && (
-          <Alert className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-            <AlertDescription className="text-red-700">{error}</AlertDescription>
-          </Alert>
-        )}
+            {error && (
+              <Alert className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                <AlertDescription className="text-red-700">{error}</AlertDescription>
+              </Alert>
+            )}
 
-        <Button
-          type="submit"
-          className="w-full text-white bg-green hover:bg-green-dark rounded"
-          size="lg"
-          disabled={isLoading}
-        >
-          {isLoading ? 'Logging in...' : 'Login'}
-        </Button>
+            <Button
+              type="submit"
+              className="w-full text-white bg-green hover:bg-green-dark rounded"
+              size="lg"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Logging in...' : 'Login'}
+            </Button>
 
-        <p className="text-center text-primary">
-          Need to create an account?{' '}
-          <Link className="text-blue hover:underline" href="/registration">
-            Create Account
-          </Link>
-        </p>
-      </form>
-    </Form>
+            <p className="text-center text-primary">
+              Need to create an account?{' '}
+              <Link className="text-blue hover:underline" href="/signup">
+                Create Account
+              </Link>
+            </p>
+        </form>
+      </Form>
+    </div>
   );
 };
 

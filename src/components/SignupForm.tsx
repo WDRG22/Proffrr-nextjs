@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 
 // Define Zod schema
 const formSchema = z.object({
@@ -35,10 +36,12 @@ const formSchema = z.object({
   path: ["confirmPassword"],
 });
 
-export function RegistrationForm() {
+export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiResponse, setApiResponse] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -93,8 +96,16 @@ export function RegistrationForm() {
     }
   }
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword)
+  }
+
   return (
-    <div className="shadow-xl p-8 bg-card rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
+    <div className="shadow-xl p-8 bg-white rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
       <h1 className="font-semibold text-2xl text-card-foreground text-center">Sign Up</h1>
       <Form {...form}>
         <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
@@ -106,7 +117,7 @@ export function RegistrationForm() {
               <FormItem>
                 <FormLabel htmlFor="first_name">First Name</FormLabel>
                 <FormControl>
-                  <Input {...field} id="first_name" className="w-full" />
+                  <Input {...field} id="first_name" placeholder="Enter your first name" className="w-full" />
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
@@ -120,7 +131,7 @@ export function RegistrationForm() {
               <FormItem>
                 <FormLabel htmlFor="last_name">Last Name</FormLabel>
                 <FormControl>
-                  <Input {...field} id="last_name" className="w-full" />
+                  <Input {...field} id="last_name" className="w-full" placeholder="Enter your last name"/>
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
@@ -148,12 +159,32 @@ export function RegistrationForm() {
               <FormItem>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Create a password" {...field} id="password" type="password" className="w-full" />
+                  <div className="relative">
+                    <Input
+                      placeholder="Create a password"
+                      {...field}
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      className="w-full pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={togglePasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
             )}
           />
+          
           {/* Confirm Password */}
           <FormField
             control={form.control}
@@ -162,7 +193,26 @@ export function RegistrationForm() {
               <FormItem>
                 <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Confirm your password" {...field} id="confirmPassword" type="password" className="w-full" />
+                  <div className="relative">
+                    <Input
+                      placeholder="Confirm your password"
+                      {...field}
+                      id="confirmPassword"
+                      type={showConfirmPassword ? "text" : "password"}
+                      className="w-full pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={toggleConfirmPasswordVisibility}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
@@ -206,14 +256,14 @@ export function RegistrationForm() {
           />
           {/* Submit Button */}
           <Button type="submit" className="w-full bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded" disabled={isLoading}>
-            {isLoading ? "Registering..." : "Register"}
+            {isLoading ? "Signing up..." : "Signup"}
           </Button>
         </form>
         {/* Success Alert */}
         {apiResponse && (
           <Alert className="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
             <AlertDescription>
-              Registration successful! Partner ID: {apiResponse.partner_id}
+              Signup successful! Partner ID: {apiResponse.partner_id}
             </AlertDescription>
           </Alert>
         )}
