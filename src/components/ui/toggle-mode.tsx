@@ -13,11 +13,11 @@ export function ModeToggle() {
   }
 
   return (
-    <Button size="icon" className="rounded-xl bg-transparent hover:bg-white dark:hover:bg-black shadow-none" onClick={toggleTheme}>
+    <Button size="icon" className="rounded-xl bg-transparent hover:bg-grey-200 dark:hover:bg-grey-700 shadow-none" onClick={toggleTheme}>
       {theme === "light" ? (
-        <MoonIcon className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+        <MoonIcon className="h-[1.5rem] w-[1.5rem]" />
       ) : (
-        <SunIcon className="h-[1.5rem] w-[1.5rem] rotate-0 scale-100 transition-all" />
+        <SunIcon className="h-[1.5rem] w-[1.5rem]" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

@@ -7,11 +7,33 @@ html, body {
 }
 
 @layer base {
-  :root {    
-    background-color: var(--color-grey-100);
+  :root {
+    --background-light: theme('colors.grey.100');
+    --background-dark: theme('colors.grey.950');
+    --text-light: theme('colors.black');
+    --text-dark: theme('colors.white');
+    
+    /* Default to light theme */
+    --background-color: var(--background-light);
+    --text-color: var(--text-light);
   }
 
   .dark {
-    background-color: var(--color-grey-950);
+    --background-color: var(--background-dark);
+    --text-color: var(--text-dark);
+  }
+
+  body {
+    @apply bg-background text-text;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .bg-theme {
+    background-color: var(--background-color);
+  }
+  .text-theme {
+    color: var(--text-color);
   }
 }

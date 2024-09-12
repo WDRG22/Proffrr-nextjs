@@ -1,5 +1,5 @@
 import { SignupForm } from '@/components/SignupForm'
-import Navbar from '@/components/Navbar/Navbar'
+import Navbar from '@/components/navbar/Navbar'
 
 export default function SignupPage() {
   return (

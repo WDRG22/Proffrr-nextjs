@@ -17,9 +17,7 @@ TO DO:
 - Implement custom color theme w/ dark and light modes
 - Update component styling for both light and dark modes
     - Depends on color theme
-- Fix navbar styling issue
-- Implement light/dark mode toggle feature in navbar
-    - Depends on localStorage
+- Create separate dark-mode color palette (muted colors, no box-shadows, etc)
 - Consolidate project structure (continuous)
 
 

@@ -1,5 +1,5 @@
 'use client'
-import LoggedOutNavbar from './LoggedOutNavbar';
+import LoggedOutNavbar from '@/components/navbar/LoggedOutNavbar';
 
 export default function Navbar() {
   return <LoggedOutNavbar />;

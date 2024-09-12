@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { LoginForm } from '@/components/LoginForm'
-import Navbar from '@/components/Navbar/Navbar'
+import Navbar from '@/components/navbar/Navbar'
 
 export default function LoginPage() {
   return (

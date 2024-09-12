@@ -16,7 +16,7 @@ const LoggedOutNavbar: React.FC = () => {
         <p className="font-bold text-green">ffrr</p>
       </Link>
       <div className='flex items-center justify-center space-x-8'>
-        <Link href="/login" className={buttonVariants({ variant: "outline", className: "px-6 bg-transparent border-green text-lg font-medium rounded-xl text-green hover:bg-green hover:text-grey-darkest transition duration-150 ease-in-out" })}>
+        <Link href="/login" className={buttonVariants({ variant: "outline", className: "px-6 text-lg font-medium rounded-xl text-green bg-transparent border-green hover:bg-green hover:text-black transition duration-150 ease-in-out" })}>
           Login
         </Link>
         <ModeToggle />

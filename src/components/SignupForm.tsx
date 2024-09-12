@@ -105,7 +105,7 @@ export function SignupForm() {
   }
 
   return (
-    <div className="shadow-xl p-8 bg-white rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
+    <div className="shadow-xl p-8 bg-white dark:bg-grey-900 rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
       <h1 className="font-semibold text-2xl text-card-foreground text-center">Sign Up</h1>
       <Form {...form}>
         <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

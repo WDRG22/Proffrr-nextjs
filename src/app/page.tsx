@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '@/components/Navbar/Navbar';
+import Navbar from '@/components/navbar/Navbar';
 import Link from 'next/link';
 
 
@@ -19,7 +19,7 @@ const IndexPage: React.FC = () => {
             <div className="space-x-4">
               <Link
                 href="/chatbot"
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded text-white bg-green hover:bg-green-dark transition duration-150 ease-in-out"
+                className="inline-flex items-center px-6 py-3 rounded-lg font-medium text-white bg-green-500 hover:bg-green-700 transition duration-150 ease-in-out"
               >
                 Get Started
               </Link>
