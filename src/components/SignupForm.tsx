@@ -25,7 +25,7 @@ const formSchema = z.object({
   last_name: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address").min(1).max(255),
   password: z.string().min(8, "Password must be at least 8 characters").max(255),
-  confirmPassword: z.string().min(8).max(255),
+  confirmPassword: z.string(),
   language: z.string().min(1, "Language is required").default("English"),
   user_type: z.enum(["customer", "merchant", "admin"]),
   is_internal: z.boolean().default(false),
@@ -105,8 +105,8 @@ export function SignupForm() {
   }
 
   return (
-    <div className="shadow-xl p-8 bg-white dark:bg-grey-900 rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
-      <h1 className="font-semibold text-2xl text-card-foreground text-center">Sign Up</h1>
+    <div className="flex-column items-center justify-center w-[600px] overflow-y-auto p-6 bg-grey-300 dark:bg-grey-900 rounded-lg shadow-xl">
+      <h1 className="font-semibold text-2xl text-card-foreground text-center pb-6">Sign Up</h1>
       <Form {...form}>
         <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
           {/* First Name */}
@@ -115,9 +115,8 @@ export function SignupForm() {
             name="first_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="first_name">First Name</FormLabel>
                 <FormControl>
-                  <Input {...field} id="first_name" placeholder="Enter your first name" className="w-full" />
+                  <Input {...field} id="first_name" placeholder="First name" className="w-full border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" />
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
@@ -129,9 +128,8 @@ export function SignupForm() {
             name="last_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="last_name">Last Name</FormLabel>
                 <FormControl>
-                  <Input {...field} id="last_name" className="w-full" placeholder="Enter your last name"/>
+                <Input {...field} id="last_name" placeholder="Last name" className="w-full border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" />
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
@@ -143,9 +141,8 @@ export function SignupForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="email">Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="email@example.com" {...field} id="email" type="email" className="w-full" />
+                  <Input {...field} id="email" placeholder="Email" className="w-full border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" />
                 </FormControl>
                 <FormMessage className="text-red" />
               </FormItem>
@@ -157,7 +154,6 @@ export function SignupForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="password">Password</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
@@ -165,7 +161,7 @@ export function SignupForm() {
                       {...field}
                       id="password"
                       type={showPassword ? "text" : "password"}
-                      className="w-full pr-10"
+                      className="w-full pr-10 border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300"
                     />
                     <button
                       type="button"
@@ -173,9 +169,9 @@ export function SignupForm() {
                       className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     >
                       {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-400" />
+                        <EyeOff className="h-5 w-5 text-gray-800 dark:text-grey-300" />
                       ) : (
-                        <Eye className="h-5 w-5 text-gray-400" />
+                        <Eye className="h-5 w-5 text-gray-800 dark:text-grey-300" />
                       )}
                     </button>
                   </div>
@@ -191,7 +187,6 @@ export function SignupForm() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
                 <FormControl>
                   <div className="relative">
                     <Input
@@ -199,7 +194,7 @@ export function SignupForm() {
                       {...field}
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
-                      className="w-full pr-10"
+                      className="w-full pr-10 border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300"
                     />
                     <button
                       type="button"
@@ -207,9 +202,9 @@ export function SignupForm() {
                       className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     >
                       {showConfirmPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-400" />
+                        <EyeOff className="h-5 w-5 text-gray-800 dark:text-grey-300" />
                       ) : (
-                        <Eye className="h-5 w-5 text-gray-400" />
+                        <Eye className="h-5 w-5 text-gray-800 dark:text-grey-300" />
                       )}
                     </button>
                   </div>
@@ -223,7 +218,7 @@ export function SignupForm() {
             control={form.control}
             name="user_type"
             render={({ field }) => (
-              <FormItem className="py-4">
+              <FormItem className="py-3">
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
@@ -232,19 +227,19 @@ export function SignupForm() {
                   >
                     <FormItem className="flex items-center space-x-2 space-y-0">
                       <FormControl>
-                        <RadioGroupItem value="customer" />
+                        <RadioGroupItem value="customer" className="border-black dark:border-white" />
                       </FormControl>
                       <FormLabel>Customer</FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-2 space-y-0">
                       <FormControl>
-                        <RadioGroupItem value="merchant" />
+                        <RadioGroupItem value="merchant" className="border-black dark:border-white" />
                       </FormControl>
                       <FormLabel>Merchant</FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-2 space-y-0">
                       <FormControl>
-                        <RadioGroupItem value="admin" />
+                        <RadioGroupItem value="admin" className="border-black dark:border-white" />
                       </FormControl>
                       <FormLabel>Admin</FormLabel>
                     </FormItem>
@@ -255,7 +250,7 @@ export function SignupForm() {
             )}
           />
           {/* Submit Button */}
-          <Button type="submit" className="w-full bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded" disabled={isLoading}>
+          <Button type="submit" className="w-full bg-green hover:bg-green-600 text-black py-2 px-4 rounded" disabled={isLoading}>
             {isLoading ? "Signing up..." : "Signup"}
           </Button>
         </form>
@@ -274,10 +269,10 @@ export function SignupForm() {
           </Alert>
         )}
       </Form>
-      <p className="text-center text-primary">
+      <p className="pt-3 text-center text-primary">
         Already have an account?{' '}
         <Link className="text-link hover:underline text-blue" href="/login">Login here</Link>{' '}
       </p>
-    </div>
+    </div> 
   );
 }

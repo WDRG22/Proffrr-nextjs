@@ -13,13 +13,10 @@ const IndexPage: React.FC = () => {
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-grey-darkest dark:text-white">
               Get Premium Tires at Unbeatable Prices
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-grey-dark dark:text-grey-lighter">
-              Welcome to Proffer, your go-to source for top-quality tires that won't break the bank.
-            </p>
             <div className="space-x-4">
               <Link
                 href="/chatbot"
-                className="inline-flex items-center px-6 py-3 rounded-lg font-medium text-white bg-green-500 hover:bg-green-700 transition duration-150 ease-in-out"
+                className="inline-flex items-center px-6 py-3 rounded-lg font-medium text-black bg-green-500 hover:bg-green-700 transition duration-150 ease-in-out"
               >
                 Get Started
               </Link>

@@ -59,7 +59,7 @@ export const LoginForm = () => {
         }
       } else if (res?.ok) {
         // Fetch user data from your API
-        const userResponse = await fetch('/api/user'); // You'll need to implement this API route
+        const userResponse = await fetch('/api/auth/signin');
         const userData = await userResponse.json();
 
         // Determine redirect based on user type
@@ -90,7 +90,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="shadow-xl p-8 bg-white dark:bg-grey-900 rounded-xl space-y-6 w-full sm:w-[400px] md:w-[500px] lg:w-[600px]">
+    <div className="space-y-6 px-8 py-6 w-[600px] rounded-xl shadow-xl bg-grey-300 dark:bg-grey-900">
       <h1 className="font-semibold text-2xl text-text-muted text-center">Login</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -100,9 +100,8 @@ export const LoginForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} type="email" placeholder='email@example.com' className="w-full" />
+                    <Input {...field} type="email" placeholder='Email' className="w-full border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" />
                   </FormControl>
                   <FormMessage className="text-red-500" />
                 </FormItem>
@@ -114,14 +113,13 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input 
                         {...field} 
                         placeholder='Password'
                         type={showPassword ? "text" : "password"} 
-                        className="w-full pr-10" 
+                        className="w-full pr-10 border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" 
                       />
                       <button
                         type="button"
@@ -129,9 +127,9 @@ export const LoginForm = () => {
                         className="absolute inset-y-0 right-0 pr-3 flex items-center"
                       >
                         {showPassword ? (
-                          <EyeOff className="h-5 w-5 text-gray-400" />
-                        ) : (
-                          <Eye className="h-5 w-5 text-gray-400" />
+                        <EyeOff className="h-5 w-5 text-gray-800 dark:text-grey-300" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-800 dark:text-grey-300" />
                         )}
                       </button>
                     </div>
@@ -149,7 +147,7 @@ export const LoginForm = () => {
 
             <Button
               type="submit"
-              className="w-full text-white bg-green hover:bg-green-dark rounded"
+              className="w-full text-black bg-green hover:bg-green-600 rounded"
               size="lg"
               disabled={isLoading}
             >
