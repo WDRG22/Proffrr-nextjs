@@ -105,7 +105,7 @@ export function SignupForm() {
   }
 
   return (
-    <div className="flex-column items-center justify-center w-[600px] overflow-y-auto p-6 bg-grey-300 dark:bg-grey-900 rounded-lg shadow-xl">
+    <div className="flex-column items-center justify-center w-[600px] overflow-y-auto p-6 bg-grey-200 dark:bg-grey-900 rounded-lg shadow-xl">
       <h1 className="font-semibold text-2xl text-card-foreground text-center pb-6">Sign Up</h1>
       <Form {...form}>
         <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

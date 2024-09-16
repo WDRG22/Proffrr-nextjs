@@ -90,7 +90,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="space-y-6 px-8 py-6 w-[600px] rounded-xl shadow-xl bg-grey-300 dark:bg-grey-900">
+    <div className="space-y-6 px-8 py-6 w-[600px] rounded-xl shadow-xl bg-grey-200 dark:bg-grey-900">
       <h1 className="font-semibold text-2xl text-text-muted text-center">Login</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
