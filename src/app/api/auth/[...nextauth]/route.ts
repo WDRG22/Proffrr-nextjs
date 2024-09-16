@@ -1,3 +1,8 @@
+// Define user auth w/ email/password
+// Specifies how to validate user credentials against backend api
+// Determines what user info is stored in JWT and session
+// Sets up api routes to be used in authentication processes
+
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import type { NextAuthOptions } from 'next-auth';
@@ -73,23 +78,23 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (isUser(token.user)) {
-        const user = token.user;
+      console.log("TOKEN: ", token)
+      const filteredUser = {
+        ...token.user as User,
+        message: undefined, // remove message property
+      }
+      console.log("filteredUser: ", filteredUser)      
+      if (isUser(filteredUser)) {
         session.user = {
           ...session.user,
-          id: user.id,
-          userId: user.userId,
-          firstName: user.firstName,
-          partnerId: user.partnerId,
-          isActive: user.isActive,
-          isAdmin: user.isAdmin,
-          isMerchant: user.isMerchant,
-          isCustomer: user.isCustomer,
-          isInternal: user.isInternal,
+          ...filteredUser,          
         } as User;
       } else {
         // Handle the case where token.user is not of type User
         console.error('Unexpected user data format');
+        // log actual user data for debugging
+        console.error("filteredUser:", JSON.stringify(filteredUser, null, 2));
+        console.log('session.user', session.user)
       }
       return session;
     },
