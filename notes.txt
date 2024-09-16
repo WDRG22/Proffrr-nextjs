@@ -2,6 +2,7 @@
 - NextAuth.js
 - TailwindCSS
 - shadcn/ui pre-built components (src/components/ui)
+- node ai
 
 - Add .env with NEXT_PUBLIC_API_URL set to fastapi url
 
@@ -15,6 +16,7 @@ TO DO:
 - Implement Vercel AI chatbot integration and agents creation
 - Flesh out front-end routes
 - Implement custom color theme w/ dark and light modes
+- Calibrate personal monitor color for theming consistency
 - Update component styling for both light and dark modes
     - Depends on color theme
 - Create separate dark-mode color palette (muted colors, no box-shadows, etc)
@@ -25,3 +27,20 @@ Last left off working on....
 - login/signup functionality
 - navbar spacing ( use fewer shadcn components to fix)
 - dark mode styling
+
+
+Q's for Kaushik:
+
+- After login, user object returned from backend contains 'Message' property
+with value 'Login successful'. Is this redundent considering status_codes? 
+Currently, I'm just filtering it out before storing the other user data in the 
+user session.
+
+Probably need some more fields returned from backend for userdata:
+- id
+- partner_id (is this a general id? different then the db entry id? use case?)
+- first_name
+- email
+- is_active(? for what use case)
+- is_admin, merchant, cutomer
+- is_internal (? what is this for? different than admin?)
