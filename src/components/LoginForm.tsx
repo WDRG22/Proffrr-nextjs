@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { getSession, signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -16,7 +16,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 
@@ -30,8 +29,6 @@ const loginSchema = z.object({
 
 export const LoginForm = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +46,7 @@ export const LoginForm = () => {
     setError(null);
     try {
       const res = await signIn('credentials', {
-        redirect: false,
+        redirect: false, // Disable auto-redirect
         email: values.email,
         password: values.password,
       });
@@ -63,21 +60,18 @@ export const LoginForm = () => {
           setError('An error occurred during login. Please try again.');
         }
       } else if (res?.ok) {
-        const userResponse = await fetch('/api/auth/signin');
-        const userData = await userResponse.json();
+        const session = await getSession()
+        const user = session?.user
 
-        // Determine redirect based on user type
-        let redirectUrl = '/dashboard'; // Default redirect
-        if (userData.is_admin) {
-          redirectUrl = '/admin-dashboard';
-        } else if (userData.is_merchant) {
-          redirectUrl = '/merchant-dashboard';
-        } else if (userData.is_customer) {
-          redirectUrl = '/customer-dashboard';
+        // Redirect based on user type
+        let redirectUrl = '/dashboard';
+        if (user?.isAdmin) {
+          redirectUrl = '/admin/dashboard';
+        } else if (user?.isMerchant) {
+          redirectUrl = '/merchant/dashboard';
+        } else if (user?.isCustomer) {
+          redirectUrl = '/customer/dashboard';
         }
-
-        // Store user data in localStorage or state management solution
-        localStorage.setItem('userData', JSON.stringify(userData));
 
         router.push(redirectUrl);
       }
