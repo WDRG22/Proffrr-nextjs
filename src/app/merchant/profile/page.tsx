@@ -7,12 +7,13 @@ export default function MerchantProfilePage() {
         <h1>Welcome to the MerchantProfilePage</h1>
         <nav>
           <ul>
-            <li><Link href="/">Home</Link></li>
+            <li>
+              <Link href='/'>Home</Link>
+            </li>
           </ul>
         </nav>
       </header>
-      <main>        
-      </main>
+      <main></main>
       <footer>
         <p>&copy; 2024 Proffer. All rights reserved.</p>
       </footer>

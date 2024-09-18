@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
@@ -17,14 +17,14 @@ const UserContext = createContext<UserContextType>({
   isLoading: true,
 });
 
-export function UserProvider({ children }: { children: React.ReactNode}) {
+export function UserProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const [user, setUser] = useState<UserContextType['user']>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (session) {
-      setUser({  email: session.user.email, role: session.user.role }); // Extract necessary user information
+      setUser({ email: session.user.email, role: session.user.role }); // Extract necessary user information
       setIsLoading(false);
     } else {
       setIsLoading(false);

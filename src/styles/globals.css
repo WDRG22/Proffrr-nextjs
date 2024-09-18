@@ -2,17 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+/* Global heights */
+html,
+body {
   height: 100%;
+  width: 100%;
 }
 
 @layer base {
   :root {
-    --background-light: theme('colors.grey.100');
+    --background-light: theme('colors.grey.200');
     --background-dark: theme('colors.grey.950');
-    --text-light: theme('colors.black');
-    --text-dark: theme('colors.white');
-    
+    --text-light: theme('colors.grey.900');
+    --text-dark: theme('colors.grey.100');
+
     /* Default to light theme */
     --background-color: var(--background-light);
     --text-color: var(--text-light);

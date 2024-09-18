@@ -1,13 +1,9 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors';
 
 const config: Config = {
-  darkMode: ["class"],
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  darkMode: ['class'],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
@@ -16,32 +12,30 @@ const config: Config = {
         grey: colors.gray,
         green: {
           DEFAULT: colors.emerald[500],
-          ...colors.emerald
+          ...colors.emerald,
         },
         red: {
           DEFAULT: colors.red[500],
-          ...colors.red
+          ...colors.red,
         },
         blue: {
           DEFAULT: colors.sky[500],
-          ...colors.sky
+          ...colors.sky,
         },
         yellow: {
           DEFAULT: colors.yellow[500],
-          ...colors.yellow
+          ...colors.yellow,
         },
         purple: {
           DEFAULT: colors.violet[500],
-          ...colors.violet
+          ...colors.violet,
         },
         background: 'var(--background-color)',
         text: 'var(--text-color)',
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-  ],
+  plugins: [require('tailwindcss-animate')],
 };
 
 export default config;

@@ -7,12 +7,13 @@ export default function AdminProfilePage() {
         <h1>Welcome to the AdminProfilePage</h1>
         <nav>
           <ul>
-            <li><Link href="/">Home</Link></li>
+            <li>
+              <Link href='/'>Home</Link>
+            </li>
           </ul>
         </nav>
       </header>
-      <main>        
-      </main>
+      <main></main>
       <footer>
         <p>&copy; 2024 Proffer. All rights reserved.</p>
       </footer>

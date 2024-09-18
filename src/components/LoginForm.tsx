@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
@@ -18,11 +18,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address").min(1).max(255),
-  password: z.string().min(8, "Password must be at least 8 characters").max(255),  
+  email: z.string().email('Please enter a valid email address').min(1).max(255),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(255),
 });
 
 export const LoginForm = () => {
@@ -52,13 +55,14 @@ export const LoginForm = () => {
       });
 
       if (res?.error) {
-        if (res.error === "CredentialsSignin") {
-          setError('Invalid email or password. Please check your credentials and try again.');
+        if (res.error === 'CredentialsSignin') {
+          setError(
+            'Invalid email or password. Please check your credentials and try again.'
+          );
         } else {
           setError('An error occurred during login. Please try again.');
         }
       } else if (res?.ok) {
-        // Fetch user data from your API
         const userResponse = await fetch('/api/auth/signin');
         const userData = await userResponse.json();
 
@@ -90,76 +94,82 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className="space-y-6 px-8 py-6 w-[600px] rounded-xl shadow-xl bg-grey-200 dark:bg-grey-900">
-      <h1 className="font-semibold text-2xl text-text-muted text-center">Login</h1>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input {...field} type="email" placeholder='Email' className="w-full border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" />
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <div className="relative">
-                      <Input 
-                        {...field} 
-                        placeholder='Password'
-                        type={showPassword ? "text" : "password"} 
-                        className="w-full pr-10 border-black dark:border-white placeholder-grey-800 dark:placeholder-grey-300" 
-                      />
-                      <button
-                        type="button"
-                        onClick={togglePasswordVisibility}
-                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                      >
-                        {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-800 dark:text-grey-300" />
-                      ) : (
-                        <Eye className="h-5 w-5 text-gray-800 dark:text-grey-300" />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-
-            {error && (
-              <Alert className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                <AlertDescription className="text-red-700">{error}</AlertDescription>
-              </Alert>
+    <div className='w-[600px] space-y-6 rounded-xl bg-grey-100 px-8 py-6 shadow-xl dark:bg-grey-900'>
+      <h1 className='text-theme text-center text-2xl font-semibold'>Login</h1>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type='email'
+                    placeholder='Email'
+                    className='w-full border-black placeholder-grey-700 dark:border-white dark:placeholder-grey-400'
+                  />
+                </FormControl>
+                <FormMessage className='text-red-500' />
+              </FormItem>
             )}
+          />
 
-            <Button
-              type="submit"
-              className="w-full text-black bg-green hover:bg-green-600 rounded"
-              size="lg"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Logging in...' : 'Login'}
-            </Button>
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className='relative'>
+                    <Input
+                      {...field}
+                      placeholder='Password'
+                      type={showPassword ? 'text' : 'password'}
+                      className='w-full border-black pr-10 placeholder-grey-700 dark:border-white dark:placeholder-grey-400'
+                    />
+                    <button
+                      type='button'
+                      onClick={togglePasswordVisibility}
+                      className='absolute inset-y-0 right-0 flex items-center pr-3'
+                    >
+                      {showPassword ? (
+                        <EyeOff className='h-5 w-5 text-gray-500' />
+                      ) : (
+                        <Eye className='h-5 w-5 text-gray-500' />
+                      )}
+                    </button>
+                  </div>
+                </FormControl>
+                <FormMessage className='text-red-500' />
+              </FormItem>
+            )}
+          />
 
-            <p className="text-center text-primary">
-              Need to create an account?{' '}
-              <Link className="text-blue hover:underline" href="/signup">
-                Create Account
-              </Link>
-            </p>
+          {error && (
+            <Alert className='relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700'>
+              <AlertDescription className='text-red-700'>
+                {error}
+              </AlertDescription>
+            </Alert>
+          )}
+
+          <Button
+            type='submit'
+            className='w-full rounded bg-green font-bold text-grey-200 hover:bg-green-600 dark:text-grey-900'
+            size='lg'
+            disabled={isLoading}
+          >
+            {isLoading ? 'Logging in...' : 'Login'}
+          </Button>
+
+          <p className='text-theme text-center'>
+            Need to create an account?{' '}
+            <Link className='text-blue hover:underline' href='/signup'>
+              Create Account
+            </Link>
+          </p>
         </form>
       </Form>
     </div>
