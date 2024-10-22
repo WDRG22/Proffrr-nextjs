@@ -2,16 +2,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { ModeToggle } from '@/components/ui/toggle-mode';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from '@/components/ui/navigation-menu';
-import { buttonVariants } from '@/components/ui/button';
+import { NavigationMenu } from '@/components/ui/navigation-menu';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { signOut, useSession } from 'next-auth/react';
 
-export default function Navbar() {
+export const Navbar = () => {
+  const { status } = useSession()
+
   return (
-    <NavigationMenu className='bg-theme fixed left-0 right-0 top-0 z-10 flex justify-between px-8 py-2'>
+    <NavigationMenu className='min-h-16 max-h-16 shrink-0 bg-theme sticky justify-between items-center overflow-hidden top-0 z-10 px-8'>
       <Link
         href='/'
         className='flex text-2xl transition duration-150 ease-in-out'
@@ -20,18 +19,28 @@ export default function Navbar() {
         <p className='font-bold text-green'>ffrr</p>
       </Link>
       <div className='flex items-center justify-center space-x-8'>
-        <Link
-          href='/login'
-          className={buttonVariants({
-            variant: 'outline',
-            className:
-              'rounded-xl border-green bg-transparent px-6 text-lg font-medium text-green transition duration-150 ease-in-out hover:bg-green hover:text-white dark:hover:text-black',
-          })}
-        >
-          Login
-        </Link>
+        {status == 'authenticated' ? (
+          <Button
+            onClick={() => signOut()}
+            variant='outline'
+            className= 'rounded-xl border-red-500 bg-transparent text-md font-medium text-red transition duration-150 ease-in-out hover:bg-red-500 hover:text-white dark:hover:text-black'
+          >
+            Sign Out
+          </Button>
+        ) : (
+          <Link
+            href='/login'
+            className={buttonVariants({
+              variant: 'outline',
+              className:
+                'rounded-xl border-green bg-transparent px-6 text-lg font-medium text-green transition duration-150 ease-in-out hover:bg-green hover:text-white dark:hover:text-black',
+            })}
+          >
+            Login
+          </Link>
+        )}
         <ModeToggle />
       </div>
     </NavigationMenu>
   );
-}
+};

@@ -1,16 +1,18 @@
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 import { streamText, convertToCoreMessages } from 'ai';
 
-// Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
-
-  const result = await streamText({
-    model: openai('gpt-3.5-turbo'),
-    messages: convertToCoreMessages(messages),
-  });
-
-  return result.toDataStreamResponse();
+  try {
+    const { messages } = await req.json();
+    const result = await streamText({
+      model: google('gemini-1.5-flash-latest'),
+      messages: convertToCoreMessages(messages),
+    });
+    return result.toDataStreamResponse();
+  } catch (error) {
+    console.error('Error in chat API:', error);
+    return new Response('An error occurred', { status: 500 });
+  }
 }

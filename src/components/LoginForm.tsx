@@ -60,8 +60,8 @@ export const LoginForm = () => {
           setError('An error occurred during login. Please try again.');
         }
       } else if (res?.ok) {
-        const session = await getSession()
-        const user = session?.user
+        const session = await getSession();
+        const user = session?.user;
 
         // Redirect based on user type
         let redirectUrl = '/dashboard';

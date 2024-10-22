@@ -11,7 +11,7 @@ body {
 
 @layer base {
   :root {
-    --background-light: theme('colors.grey.200');
+    --background-light: theme('colors.grey.50');
     --background-dark: theme('colors.grey.950');
     --text-light: theme('colors.grey.900');
     --text-dark: theme('colors.grey.100');

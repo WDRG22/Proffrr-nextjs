@@ -1,14 +1,13 @@
-import Link from 'next/link';
 import { LoginForm } from '@/components/LoginForm';
-import Navbar from '@/components/Navbar';
+import { Navbar } from '@/components/Navbar';
 
 export default function LoginPage() {
   return (
-    <>
+    <div className='flex flex-col h-full'>
       <Navbar />
-      <div className='bg-theme flex h-full items-center justify-center'>
+      <main className='flex flex-grow flex-col justify-center items-center mx-auto'>
         <LoginForm />
-      </div>
-    </>
+      </main>
+    </div>
   );
 }

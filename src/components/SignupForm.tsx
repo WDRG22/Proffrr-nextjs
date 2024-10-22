@@ -18,6 +18,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 // Form schema uses zod for validation
 const formSchema = z
@@ -41,9 +42,10 @@ const formSchema = z
     path: ['confirmPassword'],
   });
 
-export function SignupForm() {
+export const SignupForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [apiResponse, setApiResponse] = useState<any>(null);
+  const [signupSuccess, setSignupSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -65,7 +67,7 @@ export function SignupForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    setApiResponse(null);
+    setSignupSuccess(false);
     setError(null);
 
     try {
@@ -81,8 +83,8 @@ export function SignupForm() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data = await response.json();
-      setApiResponse(data);
+      setSignupSuccess(true);
+      router.push('/login');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'An unknown error occurred');
     } finally {
@@ -279,15 +281,13 @@ export function SignupForm() {
             className='w-full rounded bg-green px-4 py-2 font-bold text-grey-200 hover:bg-green-600 dark:text-grey-900'
             disabled={isLoading}
           >
-            {isLoading ? 'Signing up...' : 'Signup'}
+            {isLoading ? 'Submitting...' : 'Submit'}
           </Button>
         </form>
         {/* Success Alert */}
-        {apiResponse && (
-          <Alert className='relative mt-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700'>
-            <AlertDescription>
-              Signup successful! Partner ID: {apiResponse.partner_id}
-            </AlertDescription>
+        {signupSuccess && (
+          <Alert className='mt-4 rounded border border-green bg-green-200 text-green-900'>
+            <AlertDescription>Signup successful!</AlertDescription>
           </Alert>
         )}
         {/* Error Alert */}
@@ -305,4 +305,4 @@ export function SignupForm() {
       </p>
     </div>
   );
-}
+};
