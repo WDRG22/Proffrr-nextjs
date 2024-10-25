@@ -2,50 +2,66 @@
 
 import { useChat } from 'ai/react';
 import { FaPaperPlane } from 'react-icons/fa';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Navbar } from '@/components/Navbar';
 import { useEffect, useRef } from 'react';
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit(e as any);
+      const form = textareaRef.current?.closest('form');
+      if (form) {
+        const submitEvent = new SubmitEvent('submit', { cancelable: true, bubbles: true });
+        form.dispatchEvent(submitEvent);
+      }
     }
   };
 
-  // Auto-scroll to the latest message
+  const updateTextareaHeight = (reset = false) => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'; 
+      if (reset) {
+        textareaRef.current.style.height = '2rem';
+      } else {
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    }
+  };
+
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
     }
   }, [messages]);
-
-  const adjustTextareaHeight = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textarea = e.target;
-    textarea.style.height = 'auto'; // Reset height
-    textarea.style.height = `${textarea.scrollHeight}px`; // Adjust to new height
-  };
 
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-      <main className="flex flex-grow flex-col items-center justify-between overflow-hidden">
-        <div
-          ref={scrollRef}
-          className="flex flex-1 w-full overflow-y-auto"
-        >
-          <div className="mx-auto max-w-2xl">
+      <main
+        className={`flex flex-grow flex-col items-center overflow-hidden ${
+          messages.length === 0 ? 'justify-center' : 'justify-between'
+        }`}
+      >
+        <div ref={scrollRef} className="flex w-full overflow-y-auto">
+          <div className="mx-auto max-w-2xl w-full px-4">
             {messages.length === 0 && (
-              <div className="text-center text-gray-500 mb-4">Ask me anything!</div>
+              <div className="text-center text-gray-500 mb-4">
+                Ask me anything!
+              </div>
             )}
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`mb-4 ${message.role === 'user' ? 'text-right' : 'text-left'}`}
+                className={`mb-4 flex ${
+                  message.role === 'user' ? 'justify-end' : 'justify-start'
+                }`}
               >
                 <div
                   className={`inline-block max-w-full p-3 rounded-lg break-words ${
@@ -53,7 +69,11 @@ export default function Chat() {
                       ? 'bg-green text-white dark:bg-green-400'
                       : 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100'
                   }`}
-                  style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}
+                  style={{
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word',
+                    textAlign: 'left',
+                  }}
                 >
                   {message.content}
                 </div>
@@ -67,39 +87,48 @@ export default function Chat() {
               </div>
             )}
             {error && (
-              <div className="text-center text-red-500 mb-4">
+              <div className="text-center text-red-500 mb-4 p-3 rounded-lg bg-red-100">
                 Error: {error.message}
               </div>
             )}
           </div>
         </div>
 
-        {/* User input */}
-        <div className="flex justify-center w-full pb-6">
-          <form 
-            onSubmit={handleSubmit} 
+        <div
+          className={`flex w-full justify-center pb-6 ${
+            messages.length === 0 ? '' : 'sticky bottom-0 bg-transparent'
+          }`}
+        >
+          <form
+            onSubmit={(e) => {
+              handleSubmit(e);
+              updateTextareaHeight(true);
+            }}
             className="flex items-center w-full max-w-2xl bg-green-100 rounded-3xl pl-4 pr-2 py-2"
           >
             <textarea
+              ref={textareaRef}
               value={input}
               onChange={(e) => {
                 handleInputChange(e);
-                adjustTextareaHeight(e);
+                updateTextareaHeight();
               }}
               onKeyDown={handleKeyPress}
               placeholder="Type in your request"
-              className="flex-1 w-full bg-transparent text-gray-900 placeholder-gray-500 placeholder:font-semibold resize-none rounded-md focus:outline-none"
+              className="flex-1 w-full p-1 bg-transparent text-gray-900 placeholder-gray-500 placeholder:font-semibold resize-none rounded-md focus:outline-none"
               rows={1}
-              style={{ 
-                height: input ? 'auto' : '1.5rem', // Default height matches font size + padding 
-                lineHeight: '1.5rem',              // Consistent line height for placeholder alignment
-                minHeight: '1.5rem',               // Prevents excessive shrinking
+              style={{
+                height: 'auto',
+                minHeight: '1.5rem',
+                maxHeight: '8rem',
+                overflowY: input.length > 150 ? 'auto' : 'hidden',
+                lineHeight: '1.5rem',
               }}
               disabled={isLoading}
             />
-            <button 
-              type="submit" 
-              className="ml-2 p-2 text-green-700 hover:text-green-900"
+            <button
+              type="submit"
+              className="ml-2 p-2 text-green-700 hover:text-green-900 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isLoading}
             >
               <FaPaperPlane size={20} />
