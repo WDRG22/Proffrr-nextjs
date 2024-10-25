@@ -38,7 +38,7 @@ export default function Chat() {
           ref={scrollRef}
           className="flex flex-1 w-full overflow-y-auto"
         >
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-2xl">
             {messages.length === 0 && (
               <div className="text-center text-gray-500 mb-4">Ask me anything!</div>
             )}
@@ -75,30 +75,37 @@ export default function Chat() {
         </div>
 
         {/* User input */}
-        <form 
-          onSubmit={handleSubmit} 
-          className="w-full max-w-4xl mb-4 px-4 py-2 bg-green-100 rounded-3xl flex items-center"
-        >
-          <textarea
-            value={input}
-            onChange={(e) => {
-              handleInputChange(e);
-              adjustTextareaHeight(e);
-            }}
-            onKeyDown={handleKeyPress}
-            placeholder="Type in your request"
-            className="flex-1 h-full w-full max-h-48 bg-transparent text-gray-900 placeholder:text-gray-500 placeholder:font-semibold rounded-lg resize-none focus:outline-none"
-            rows={1}
-            disabled={isLoading}
-          />
-          <button 
-            type="submit" 
-            className="self-end p-3 text-green-700 hover:text-green-900"
-            disabled={isLoading}
+        <div className="flex justify-center w-full pb-6">
+          <form 
+            onSubmit={handleSubmit} 
+            className="flex items-center w-full max-w-2xl bg-green-100 rounded-3xl pl-4 pr-2 py-2"
           >
-            <FaPaperPlane size={24} />
-          </button>
-        </form>
+            <textarea
+              value={input}
+              onChange={(e) => {
+                handleInputChange(e);
+                adjustTextareaHeight(e);
+              }}
+              onKeyDown={handleKeyPress}
+              placeholder="Type in your request"
+              className="flex-1 w-full bg-transparent text-gray-900 placeholder-gray-500 placeholder:font-semibold resize-none rounded-md focus:outline-none"
+              rows={1}
+              style={{ 
+                height: input ? 'auto' : '1.5rem', // Default height matches font size + padding 
+                lineHeight: '1.5rem',              // Consistent line height for placeholder alignment
+                minHeight: '1.5rem',               // Prevents excessive shrinking
+              }}
+              disabled={isLoading}
+            />
+            <button 
+              type="submit" 
+              className="ml-2 p-2 text-green-700 hover:text-green-900"
+              disabled={isLoading}
+            >
+              <FaPaperPlane size={20} />
+            </button>
+          </form>
+        </div>
       </main>
     </div>
   );
