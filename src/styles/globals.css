@@ -9,6 +9,9 @@ body {
   width: 100%;
 }
 
+/* Import Roboto Mono font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap');
+
 @layer base {
   :root {
     --background-light: theme('colors.grey.50');
@@ -28,6 +31,14 @@ body {
 
   body {
     @apply bg-background text-text;
+  }
+
+  code {
+    font-family: "Roboto Mono", monospace; /* Ensures all inline code uses Roboto Mono */
+  }
+
+  pre {
+    font-family: "Roboto Mono", monospace; /* Ensures all preformatted text uses Roboto Mono */
   }
 }
 
