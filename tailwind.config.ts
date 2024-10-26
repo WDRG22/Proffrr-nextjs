@@ -1,3 +1,5 @@
+// tailwind.config.ts
+
 import type { Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors';
 
@@ -31,7 +33,11 @@ const config: Config = {
           ...colors.violet,
         },
         background: 'var(--background-color)',
-        text: 'var(--text-color)',
+        text: {
+          DEFAULT: 'var(--text-color)', // Default text color
+          light: colors.black,           // Light mode text color
+          dark: colors.gray[200],        // Dark mode text color
+        },
       },
     },
   },

@@ -21,7 +21,7 @@ export const Navbar = () => {
       <div className='flex items-center justify-center space-x-8'>
         {status == 'authenticated' ? (
           <Button
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: '/'})}
             variant='outline'
             className= 'rounded-xl border-red-500 bg-transparent text-md font-medium text-red transition duration-150 ease-in-out hover:bg-red-500 hover:text-white dark:hover:text-black'
           >
