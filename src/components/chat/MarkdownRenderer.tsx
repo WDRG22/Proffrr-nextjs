@@ -13,6 +13,9 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, role, clas
   const baseTextStyle = role === 'user' ? 'bg-green-400 text-gray-900' : 'text-gray-900 dark:text-gray-100'
   
   const components: Partial<Components> = {
+    a({ children, ...props }) {
+        return <a className='underline text-blue-700' {...props}>{children}</a>
+    },
     code({ className, children, node, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
       const isInline = node?.position?.start.line === node?.position?.end.line;
