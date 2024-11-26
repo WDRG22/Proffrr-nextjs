@@ -36,8 +36,11 @@ const Chat: React.FC = () => {
     <main className="flex flex-col h-screen overflow-hidden">
       {messages.length === 0 ? (
         <div className="flex-1 flex flex-col justify-center items-center">
-          <div className="text-center text-lg font-semibold">Ask me anything!</div>
-          <div className="flex w-full justify-center mt-6">
+          <div className="flex flex-col w-full max-w-3xl justify-center items-start mt-6">
+            <h1 className="text-center text-4xl font-semibold">Get the best tire deals</h1>
+            <h1 className="text-center text-4xl font-semibold">Tell us about your vehicle</h1>
+          </div>
+          <div className="flex w-full max-w-3xl justify-center mt-6">
             <UserInput 
               input={input} 
               onInputChange={(e) => {
@@ -56,7 +59,10 @@ const Chat: React.FC = () => {
         </div>
       ) : (
         <>    
-            <div className="flex-1 overflow-y-auto w-full" ref={scrollRef}>
+        <div className='w-full max-w-3xl self-center my-6'>
+          <h1>you can <a href="/auth/signin" className='underline'>sign in</a> or <a href="/auth/signup" className='underline'>sign up</a> to continue</h1>
+        </div>
+          <div className="flex-1 overflow-y-auto w-full" ref={scrollRef}>
             <div className="mx-auto max-w-3xl w-full px-4 space-y-4">
                 {messages.map((message) => (
                 <div key={message.id} className="flex items-start w-full">
@@ -103,7 +109,7 @@ const Chat: React.FC = () => {
                 textareaRef={textareaRef}
                 onKeyPress={handleKeyPress}
                 />
-            </div>
+          </div>
         </>
       )}
     </main>

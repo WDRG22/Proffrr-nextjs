@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-const loginSchema = z.object({
+const signInSchema = z.object({
   email: z.string().email('Please enter a valid email address').min(1).max(255),
   password: z
     .string()
@@ -27,26 +27,26 @@ const loginSchema = z.object({
     .max(255),
 });
 
-export const LoginForm = () => {
+export const SignInForm = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signInSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     setIsLoading(true);
     setError(null);
     try {
       const res = await signIn('credentials', {
-        redirect: false, // Disable auto-redirect
+        redirect: false,
         email: values.email,
         password: values.password,
       });
@@ -57,7 +57,7 @@ export const LoginForm = () => {
             'Invalid email or password. Please check your credentials and try again.'
           );
         } else {
-          setError('An error occurred during login. Please try again.');
+          setError('An error occurred during sign in. Please try again.');
         }
       } else if (res?.ok) {
         const session = await getSession();
@@ -76,7 +76,7 @@ export const LoginForm = () => {
         router.push(redirectUrl);
       }
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('SignIn error:', err);
       setError('An unexpected error occurred. Please try again later.');
     } finally {
       setIsLoading(false);
@@ -89,7 +89,7 @@ export const LoginForm = () => {
 
   return (
     <div className='w-[600px] space-y-6 rounded-xl bg-grey-100 px-8 py-6 shadow-xl dark:bg-grey-900'>
-      <h1 className='text-theme text-center text-2xl font-semibold'>Login</h1>
+      <h1 className='text-theme text-center text-2xl font-semibold'>Sign In</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <FormField
@@ -155,12 +155,12 @@ export const LoginForm = () => {
             size='lg'
             disabled={isLoading}
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? 'Signing in...' : 'Sign In'}
           </Button>
 
           <p className='text-theme text-center'>
             Need to create an account?{' '}
-            <Link className='text-blue hover:underline' href='/signup'>
+            <Link className='text-blue hover:underline' href='/auth/signup'>
               Create Account
             </Link>
           </p>
@@ -170,4 +170,4 @@ export const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignInForm;

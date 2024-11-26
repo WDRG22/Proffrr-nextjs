@@ -42,10 +42,10 @@ const formSchema = z
     path: ['confirmPassword'],
   });
 
-export const SignupForm = () => {
+export const SignUpForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -67,7 +67,7 @@ export const SignupForm = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    setSignupSuccess(false);
+    setSignUpSuccess(false);
     setError(null);
 
     try {
@@ -83,8 +83,8 @@ export const SignupForm = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      setSignupSuccess(true);
-      router.push('/login');
+      setSignUpSuccess(true);
+      router.push('/auth/signin');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'An unknown error occurred');
     } finally {
@@ -285,9 +285,9 @@ export const SignupForm = () => {
           </Button>
         </form>
         {/* Success Alert */}
-        {signupSuccess && (
+        {signUpSuccess && (
           <Alert className='mt-4 rounded border border-green bg-green-200 text-green-900'>
-            <AlertDescription>Signup successful!</AlertDescription>
+            <AlertDescription>Sign up successful!</AlertDescription>
           </Alert>
         )}
         {/* Error Alert */}
@@ -299,7 +299,7 @@ export const SignupForm = () => {
       </Form>
       <p className='text-theme pt-3 text-center'>
         Already have an account?{' '}
-        <Link className='text-link text-blue hover:underline' href='/login'>
+        <Link className='text-link text-blue hover:underline' href='/auth/signin'>
           Login here
         </Link>{' '}
       </p>

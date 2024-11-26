@@ -5,9 +5,15 @@ import { ModeToggle } from '@/components/ui/toggle-mode';
 import { NavigationMenu } from '@/components/ui/navigation-menu';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export const Navbar = () => {
   const { status } = useSession()
+  const handleSignOut = async () => {
+    await signOut();
+    const router = useRouter()
+    router.push('/')
+  }
 
   return (
     <NavigationMenu className='min-h-16 max-h-16 shrink-0 bg-theme sticky justify-between items-center overflow-hidden top-0 z-10 px-8'>
@@ -21,7 +27,7 @@ export const Navbar = () => {
       <div className='flex items-center justify-center space-x-8'>
         {status == 'authenticated' ? (
           <Button
-            onClick={() => signOut({ callbackUrl: '/'})}
+            onClick={handleSignOut}
             variant='outline'
             className= 'rounded-xl border-red-500 bg-transparent text-md font-medium text-red transition duration-150 ease-in-out hover:bg-red-500 hover:text-white dark:hover:text-black'
           >
@@ -29,7 +35,7 @@ export const Navbar = () => {
           </Button>
         ) : (
           <Link
-            href='/login'
+            href='/auth/signin'
             className={buttonVariants({
               variant: 'outline',
               className:

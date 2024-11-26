@@ -30,7 +30,7 @@ export const UserInput: React.FC<UserInputProps> = ({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex items-center w-full max-w-2xl rounded-3xl pl-4 pr-2 py-2 bg-green-100"
+      className="flex items-center w-full rounded-3xl pl-4 pr-2 py-2 bg-green-100"
       role="form"
       aria-label="Chat message input"
     >

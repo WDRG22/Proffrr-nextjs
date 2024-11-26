@@ -1,8 +1,14 @@
+// NextAuth config
+
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import type { NextAuthOptions, Session } from 'next-auth';
+import type { NextAuthOptions, User } from 'next-auth';
 
 export const authOptions: NextAuthOptions = {
+  // JWT session strategy
+  session: {
+    strategy: "jwt"
+  },
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -14,9 +20,11 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+
+      // Verify user credentials at login w/ backend api
+      async authorize(credentials): Promise<User | null> {
         if (!credentials) {
-          throw new Error('No credentials provided');
+          return null;
         }
         try {
           const response = await fetch(`${process.env.API_URL}/v1/user/login`, {
@@ -26,16 +34,15 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!response.ok) {
-            throw new Error(
-              `Login failed: ${response.status} ${response.statusText}`
-            );
+            return null
           }
 
+          // Return user data to be encoded in JWT
           const user = await response.json();
 
           return {
             id: user.user_id,
-            name: user.first_name,
+            firstName: user.first_name,
             email: user.email,
             partnerId: user.partner_id,
             isActive: user.is_active,
@@ -43,7 +50,7 @@ export const authOptions: NextAuthOptions = {
             isMerchant: user.is_merchant,
             isCustomer: user.is_customer,
             isInternal: user.is_internal,
-          };
+          } as User;
         } catch (error) {
           console.error('Authentication error:', error);
           return null;
@@ -52,21 +59,34 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    
+    // When JWT is created or updated (i.e. logging in, or token refresh)
+    // Add user data to token
     async jwt({ token, user }) {
+      console.log("JWT CALLBACK")
       if (user) {
         token.user = user;
       }
       return token;
     },
+    
+    // When session is checked (i.e. calling useSession())
+    // Add user data from token to session
     async session({ session, token }) {
+      console.log("SESSION CALLBACK")
       if (token.user) {
-        session.user = token.user as any;
+        session.user = {
+          ...session.user as User,
+          ...token.user as User
+        }
       }
       return session;
     },
   },
   pages: {
-    error: '/auth/error',
+    signIn: '/auth/signin',  // Tells NextAuth where your custom sign in page is
+    signOut: '/',            // Where to redirect after signing out
+    error: '/auth/error',    // Custom error page location
   },
   debug: process.env.NODE_ENV === 'development',
 };

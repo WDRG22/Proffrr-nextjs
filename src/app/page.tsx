@@ -13,7 +13,7 @@ const IndexPage: React.FC = () => {
           </h1>
           <div className='space-x-4'>
             <Link
-              href='/chat'
+              href='/public/chat'
               className='text-theme inline-flex items-center rounded-lg bg-green-500 px-6 py-3 font-medium transition duration-150 ease-in-out hover:bg-green-700'
             >
               Get Started
