@@ -2,7 +2,12 @@
 
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google"
 import type { NextAuthOptions, User } from 'next-auth';
+
+if (!process.env.GOOGLE_ID || !process.env.GOOGLE_SECRET) {
+  throw new Error('Missing required environment variables for Google authentication');
+}
 
 export const authOptions: NextAuthOptions = {
   // JWT session strategy
@@ -56,6 +61,10 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
       },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!
     }),
   ],
   callbacks: {

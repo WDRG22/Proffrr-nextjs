@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
+import { Chrome } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -87,6 +88,17 @@ export const SignInForm = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleGoogleSignIn = () => {
+    setIsLoading(true)
+    signIn('google', {
+      callbackUrl: '/'
+    }).catch((error) => {
+      console.error('Google sign in error', error)
+      setError('An error occurred during Google sign in. Please try again')
+      setIsLoading(false)
+    })
+  }
+
   return (
     <div className='w-[600px] space-y-6 rounded-xl bg-grey-100 px-8 py-6 shadow-xl dark:bg-grey-900'>
       <h1 className='text-theme text-center text-2xl font-semibold'>Sign In</h1>
@@ -156,6 +168,24 @@ export const SignInForm = () => {
             disabled={isLoading}
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full bg-white text-gray-800 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+            size="lg"
+            disabled={isLoading}
+            onClick={handleGoogleSignIn}
+          >
+            {isLoading ? (
+              'Signing in...'
+            ) : (
+              <div className="flex items-center justify-center gap-2">
+                <Chrome className="h-5 w-5" />
+                Sign in with Google
+              </div>
+            )}
           </Button>
 
           <p className='text-theme text-center'>
